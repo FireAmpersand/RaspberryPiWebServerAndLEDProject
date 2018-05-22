@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+   <head>
+      <title>LED Status</title>
+      <link rel="stylesheet" href='../static/style.css'/>
+   </head>
+
+   <body bgcolor="#33FF33"><center>
+		<h2> Status </h2>
+		<h3> The current pattern is {{ pattern  }}</h3>
+		<br>
+		<h2> Commands </h2>
+		<h3> 
+			Run Bootup <br/>
+			<a href="/bootup/start" class="button"><img src="https://i.imgflip.com/2asb7a.jpg" width="30" height="30"></a>
+			<a href="/bootup/stop" class="button">TURN OFF</a>  
+		</h3>
+		<h3> 
+			Run Theater Chase </br>
+			<a href="/TheaterChase/start" class="button">TURN ON</a>  
+			<a href="/TheaterChase/stop"class="button">TURN OFF</a>
+		</h3>
+		<h3> 
+			Run Pattern Three </br> 
+			<a href="/ledGrn/start" class="button">TURN ON</a>
+		</h3></center>
+		
+   </body>
+</html>

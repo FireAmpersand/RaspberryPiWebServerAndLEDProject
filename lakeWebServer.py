@@ -30,7 +30,7 @@ def index():
 def action(deviceName):
     CURRENT_PATTERN = "Changing"
     if request.method == 'POST':
-	led.turnOff()
+        led.turnOff()
         newBright = int(request.form['bright'])
         print("Setting the new brightness to: " + str(newBright))
         led.STRIP_ONE_BRIGHTNESS = newBright

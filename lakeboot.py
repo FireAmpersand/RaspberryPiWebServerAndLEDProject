@@ -52,7 +52,7 @@ def theaterChase(color,wait_ms=50, times=10):
             for i in range(0, STRIP.numPixels(), 3):
                 STRIP.setPixelColor(i+q, 0)
 
-def colorwipeBeam(color, wait_ms = 20):
+def colorWipeBeam(color, wait_ms = 20):
     for q in range(STRIP_ONE_LEDS_PER_STRAND):
         for i in range(0, STRIP.numPixels(), STRIP_ONE_LEDS_PER_STRAND):
             STRIP.setPixelColor(i+q, color)
@@ -72,13 +72,13 @@ def runColorCycle():
         colorWipeBeam(Color(0,0,255))
         colorWipeBeam(Color(114,228,52))
         colorWipeBeam(Color(0,0,0))
-
+        colorWipeBeam(Color(255,0,128))
 
 def startUp(): 
-    olorwipeBeam(Color(255,0,0))
-    colorwipeBeam(Color(0,255,0))
-    colorwipeBeam(Color(0,0,255))
-    colorwipeBeam(Color(0,0,0))
+    colorWipeBeam(Color(255,0,0))
+    colorWipeBeam(Color(0,255,0))
+    colorWipeBeam(Color(0,0,255))
+    colorWipeBeam(Color(0,0,0))
     #pulseColor(Color(255,0,0))
     #pulseColor(Color(255,0,0))
     #pulseColor(Color(255,0,0))

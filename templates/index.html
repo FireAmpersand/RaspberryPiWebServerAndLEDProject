@@ -14,12 +14,13 @@
 		<form action="/" id="brightSlider">
 			<div class="slidecontainer">
 				<input type="range" min="1" max="255" value="127" class="slider" id="brightness" name="brightnessSlider">
-				<input type="submit" value="Update Brightness">
 			</div>
 		</form>
 		<script>
+			
+			var slider = document.getElementById("brightness");
 			// Attach a submit handler to the form
-			$( "#brightSlider" ).submit(function( event ) {
+			$("#brightSlider").on("input change", function( event ) {
  
   				// Stop form from submitting normally
   				event.preventDefault();

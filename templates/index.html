@@ -2,6 +2,7 @@
    <head>
       <title>LED Status</title>
       <link rel="stylesheet" href="/../static/style.css">
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    </head>
 
    <body bgcolor="#33FF33"><center>
@@ -10,19 +11,28 @@
 		<br>
 		<h2> <font size="7">Commands</font></h2>
 		<h3> <font size="5">Brightness</font><br/></h3>
-		<form method='POST'>
-			<input name="bright">
-			<input type="submit">
+		<form action="/" id="brightSlider">
+			<div class="slidecontainer">
+				<input type="range" min="1" max="255" value="127" class="slider" id="brightness" name="brightnessSlider">
+				<input type="submit" value="Update Brightness">
+			</div>
 		</form>
 		<script>
-			var value = $('.bright').val();
-			$.ajax({
-				type: 'POST',
-				url: "/brightnessUpdate", 
-				data: JSON.stripify(value),
-				contentType: 'application/json',
+			// Attach a submit handler to the form
+			$( "#brightSlider" ).submit(function( event ) {
+ 
+  				// Stop form from submitting normally
+  				event.preventDefault();
+ 
+  				// Get some values from elements on the page:
+  				var $form = $( this ),
+    				term = $form.find( "input[name='brightnessSlider']" ).val(),
+				url = window.location.pathname;
+ 
+  				// Send the data using post
+  				var posting = $.post( url, { bright: term } );
 			});
-		</script>
+		</script>				
 		<h3>
 			<font size="5">Turn Off</font></br>
 			<a href="/stop" href="/stop" class="button"><img src="https://i.imgflip.com/2ascgo.jpg" width="200" height="200"></a>
@@ -39,6 +49,5 @@
 			<font size="5">Run Static White</font></br>
 			<a href="/StaticColor" class"button"><img src="https://i.imgflip.com/2atc32.jpg" width="200" height="200"></a>
 		</center>
-		<script src="static/script.js></script>		
    </body>
 </html>

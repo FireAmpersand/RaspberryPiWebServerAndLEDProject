@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request #Import for the web stuf
 import json
 import threading
-import lakeboot as led
+import python.leds as led
 
 #Gloabl Variable for current Pattern
 CURRENT_PATTERN = "No Pattern Running"
@@ -74,6 +74,16 @@ def action(deviceName):
         'title' : 'LED Pattern Status',
         'pattern' : CURRENT_PATTERN,
     }
+    return render_template('index.html', **templateData)
+
+@app.route('/brightnessUpdate', methods=['GET','POST'])
+def brightnessUpdate():
+    templateData = {
+        'tilte' : 'LED Pattern Status',
+        'pattern' : CURRENT_PATTERN,
+    }
+    print('In brightness')
+
     return render_template('index.html', **templateData)
 
 if __name__ == "__main__":

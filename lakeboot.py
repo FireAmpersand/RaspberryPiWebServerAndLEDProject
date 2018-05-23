@@ -4,7 +4,7 @@ import argparse
 import random
 
 #LED Strip One Setup
-STRIP_ONE_LEDS = 216 #Total LEDS
+STRIP_ONE_LEDS = 432 #Total LEDS
 STRIP_ONE_LEDS_PER_STRAND = 108 #LEDS PER BEAM
 STRIP_ONE_PIN = 18 #LED PIN OUT
 STRIP_ONE_FREQ = 1000000
@@ -16,6 +16,9 @@ STRIP = Adafruit_NeoPixel(STRIP_ONE_LEDS, STRIP_ONE_PIN, STRIP_ONE_FREQ, STRIP_O
 STRIP.begin()
 
 MASTER_LOOP = False
+
+def newBrightness():
+    STRIP.setBrightness( STRIP_ONE_BRIGHTNESS)
 
 def colorwipe(color, wait_ms=1):
     for i in range(STRIP.numPixels()):
@@ -61,20 +64,25 @@ def staticColor(red,green,blue):
         STRIP.setPixelColor(i, Color(red,green,blue))
     STRIP.show()
 
+
+def runColorCycle():
+    while MASTER_LOOP:
+        colorWipeBeam(Color(255,0,0))
+        colorWipeBeam(Color(0,255,0))
+        colorWipeBeam(Color(0,0,255))
+        colorWipeBeam(Color(114,228,52))
+        colorWipeBeam(Color(0,0,0))
+
+
 def startUp(): 
-    print("Running Red ColorWipe")
-    colorwipeBeam(Color(255,0,0))
-    print("Running Green revColorWipe")
+    olorwipeBeam(Color(255,0,0))
     colorwipeBeam(Color(0,255,0))
-    print("Running Blue Colorwipe")
     colorwipeBeam(Color(0,0,255))
-    print("Running Black revColorwipe")
     colorwipeBeam(Color(0,0,0))
-    print("Pulsing Green")
-    pulseColor(Color(255,0,0))
-    pulseColor(Color(255,0,0))
-    pulseColor(Color(255,0,0))
-    pulseColor(Color(255,0,0))
+    #pulseColor(Color(255,0,0))
+    #pulseColor(Color(255,0,0))
+    #pulseColor(Color(255,0,0))
+    #pulseColor(Color(255,0,0))
 
 
 def turnOff():

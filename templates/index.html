@@ -1,7 +1,7 @@
 <!DOCTYPE html>
    <head>
       <title>LED Status</title>
-      <link rel="stylesheet" href='../static/style.css'/>
+      <link rel="stylesheet" href="/../static/style.css">
    </head>
 
    <body bgcolor="#33FF33"><center>
@@ -10,10 +10,22 @@
 		<br>
 		<h2> <font size="7">Commands</font></h2>
 		<h3> <font size="5">Brightness</font><br/></h3>
-		<div class="slidecontainer">
-				<input type="range" min="0" max="255" value="127" class="slider" id="brightnessValue">
-		</dev>
-			<a href="/stop" href="/TheaterChase/stop" class="button"><img src="https://i.imgflip.com/2ascgo.jpg" width="200" height="200"></a>
+		<form method='POST'>
+			<input name="bright">
+			<input type="submit">
+		</form>
+		<script>
+			var value = $('.bright').val();
+			$.ajax({
+				type: 'POST',
+				url: "/brightnessUpdate", 
+				data: JSON.stripify(value),
+				contentType: 'application/json',
+			});
+		</script>
+		<h3>
+			<font size="5">Turn Off</font></br>
+			<a href="/stop" href="/stop" class="button"><img src="https://i.imgflip.com/2ascgo.jpg" width="200" height="200"></a>
 		</h3>
 		<h3> 
 			<font size="5">Run Bootup</font> <br/>
@@ -27,12 +39,6 @@
 			<font size="5">Run Static White</font></br>
 			<a href="/StaticColor" class"button"><img src="https://i.imgflip.com/2atc32.jpg" width="200" height="200"></a>
 		</center>
-		<script language="javascript">
-			var slider = document.getElementById("brightnessValue");
-			var communication = new XMLHttpRequest("GET", "/brightnessUpdate", true);
-			slider.oninput = function() {
-				communication.sent();
-			}	
-		</script>	
+		<script src="static/script.js></script>		
    </body>
 </html>

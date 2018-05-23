@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request #Import for the web stuf
+import json
 import threading
 import lakeboot as led
 
@@ -13,6 +14,8 @@ def loopPattern(type):
         led.runTheater()
     elif type  == "B":
         led.startUp()
+    elif type == "S":
+        led.staticColor(255,255,255)
 
 
 @app.route("/")
@@ -23,15 +26,15 @@ def index():
     }
     return render_template('index.html',**templateData)
 
-@app.route("/<deviceName>/<action>")
-def action(deviceName, action):
+@app.route("/<deviceName>/")
+def action(deviceName):
     CURRENT_PATTERN = "Changing"
-    if action == 'stop':
+    if deviceName == 'stop':
         CURRENT_PATTERN = 'No Pattern Running'
         led.MASTER_LOOP = False
         led.turnOff()
 
-    if deviceName == 'bootup' and action != 'stop':
+    if deviceName == 'bootup':
         if led.MASTER_LOOP ==  True:
             led.MASTER_LOOP = False
         led.turnOff()
@@ -41,7 +44,7 @@ def action(deviceName, action):
         t.daemon = True
         t.start()
 
-    if deviceName == 'TheaterChase' and action != 'stop':
+    if deviceName == 'TheaterChase':
         if led.MASTER_LOOP == True:
             led.MASTER_LOOP = False
         led.turnOff()
@@ -50,12 +53,28 @@ def action(deviceName, action):
         t = threading.Thread(target=loopPattern, args=("T"))
         t.daemon = True
         t.start()
+    
+    if deviceName == 'StaticColor':
+        if led.MASTER_LOOP == True:
+            led.MASTER_LOOP = False
+        led.turnOff()
+        CURRENT_PATTERN = "Static Color"
+        t = threading.Thread(target=loopPattern, args=("S"))
+        t.daemon = True
+        t.start()
 
     templateData = {
         'title' : 'LED Pattern Status',
         'pattern' : CURRENT_PATTERN,
     }
     return render_template('index.html', **templateData)
+
+@app.route("/brightnessUpdate", methods=['POST'])
+def brightnessUpdate():
+    newBrightness = request.form.get('bright', 127, type=float)
+    print("Hello")
+    print(newBrightness)
+    led.STRIP.setBrightness(newBrightness)
 
 if __name__ == "__main__":
     led.startUp()

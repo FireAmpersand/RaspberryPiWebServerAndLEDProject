@@ -4,8 +4,8 @@ import argparse
 import random
 
 #LED Strip One Setup
-STRIP_ONE_LEDS = 218 #Total LEDS
-STRIP_ONE_LEDS_PER_STRAND = 109 #LEDS PER BEAM
+STRIP_ONE_LEDS = 216 #Total LEDS
+STRIP_ONE_LEDS_PER_STRAND = 108 #LEDS PER BEAM
 STRIP_ONE_PIN = 18 #LED PIN OUT
 STRIP_ONE_FREQ = 1000000
 STRIP_ONE_DMA = 10
@@ -29,17 +29,17 @@ def revColorWipe(color, wait_ms=1):
         STRIP.show()
         time.sleep(wait_ms/1000.0)
 
-def pulseColor(color, wait_ms=1000):
+def pulseColor(color, wait_ms=100):
     for i in range(STRIP.numPixels()):
         STRIP.setPixelColor(i, color)
     STRIP.show()
     time.sleep(wait_ms/1000.0)
     for t in range(STRIP.numPixels()):
-        STRIP.setPixelColor(i, Color(0,0,0))
+        STRIP.setPixelColor(t, Color(0,0,0))
     STRIP.show()
     time.sleep(wait_ms/1000.0)
 
-def theaterChase(color,wait_ms=100, times=10):
+def theaterChase(color,wait_ms=50, times=10):
     for j in range(times):
         for q in range(3):
             for i in range(0, STRIP.numPixels(), 3):
@@ -49,12 +49,17 @@ def theaterChase(color,wait_ms=100, times=10):
             for i in range(0, STRIP.numPixels(), 3):
                 STRIP.setPixelColor(i+q, 0)
 
-def colorwipeBeam(color, wait_ms = 30):
+def colorwipeBeam(color, wait_ms = 20):
     for q in range(STRIP_ONE_LEDS_PER_STRAND):
         for i in range(0, STRIP.numPixels(), STRIP_ONE_LEDS_PER_STRAND):
             STRIP.setPixelColor(i+q, color)
         STRIP.show()
         time.sleep(wait_ms/1000.0)
+
+def staticColor(red,green,blue):
+    for i in range(STRIP.numPixels()):
+        STRIP.setPixelColor(i, Color(red,green,blue))
+    STRIP.show()
 
 def startUp(): 
     print("Running Red ColorWipe")

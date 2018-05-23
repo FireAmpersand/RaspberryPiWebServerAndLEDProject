@@ -9,21 +9,30 @@
 		<h3> <font size="4">The current pattern is <br/> {{ pattern  }}</font></h3>
 		<br>
 		<h2> <font size="7">Commands</font></h2>
-		<h3>
-			<a href="/bootup/stop" href="/TheaterChase/stop" class="button"><img src="https://i.imgflip.com/2ascgo.jpg" width="200" height="200"></a>
+		<h3> <font size="5">Brightness</font><br/></h3>
+		<div class="slidecontainer">
+				<input type="range" min="0" max="255" value="127" class="slider" id="brightnessValue">
+		</dev>
+			<a href="/stop" href="/TheaterChase/stop" class="button"><img src="https://i.imgflip.com/2ascgo.jpg" width="200" height="200"></a>
 		</h3>
 		<h3> 
 			<font size="5">Run Bootup</font> <br/>
-			<a href="/bootup/start" class="button"><img src="https://i.imgflip.com/2asb7a.jpg" width="200" height="200" title="Hello World"></a>  
+			<a href="/bootup" class="button"><img src="https://i.imgflip.com/2asb7a.jpg" width="200" height="200" title="Hello World"></a>  
 		</h3>
 		<h3> 
 			<font size="5">Run Theater Chase</font></br>
-			<a href="/TheaterChase/start" class="button"><img src="https://i.imgflip.com/2asb7a.jpg" width="200" height="200"></a>  
+			<a href="/TheaterChase" class="button"><img src="https://i.imgflip.com/2asb7a.jpg" width="200" height="200"></a>  
 		</h3>
-<!--		<h3> 
-			<font size="5">Run Pattern Three</font></br> 
-			<a href="/ledGrn/start" class="button">TURN ON</a>
-		</h3> --></center>
-		
+		<h3>
+			<font size="5">Run Static White</font></br>
+			<a href="/StaticColor" class"button"><img src="https://i.imgflip.com/2atc32.jpg" width="200" height="200"></a>
+		</center>
+		<script language="javascript">
+			var slider = document.getElementById("brightnessValue");
+			var communication = new XMLHttpRequest("GET", "/brightnessUpdate", true);
+			slider.oninput = function() {
+				communication.sent();
+			}	
+		</script>	
    </body>
 </html>

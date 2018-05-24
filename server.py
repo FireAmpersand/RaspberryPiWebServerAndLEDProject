@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request #Import for the web stuf
 import json
 import threading
-import python.leds as led
+import python.internalLEDs as iLED #Import for the inside leds
+import python.externalLEDs as eLED #Import for the outside leds
 
 #Gloabl Variable for current Pattern
 CURRENT_PATTERN = "No Pattern Running"
@@ -12,15 +13,15 @@ app = Flask(__name__)
 def loopPattern(type):
     """Gets Called as a multiprocess and loops the code"""
     if type == 'T':
-        led.runTheater()
+        iLED.runTheater()
     elif type  == "B":
-        led.runColorCycle()
+        iLED.runColorCycle()
     elif type == "S":
-        led.staticColor(255,255,255)
+        iLED.staticColor(255,255,255)
     elif type == "R":
-        led.runRave()
+        iLED.runRave()
     elif type == "P":
-        led.pong()
+        iLED.pong()
 
 
 @app.route("/")
@@ -46,27 +47,35 @@ def action(deviceName):
         print("Setting the new brightness to: " + str(newBright))
         
         #Changing the gloabl brightness variable and telling the leds to update themselves.
-        led.STRIP_BRIGHTNESS = newBright 
-        led.newBrightness()
+        iLED.STRIP_BRIGHTNESS = newBright 
+        iLED.newBrightness()
          
     #Checks to see what the user has requested to be run.
+    #Toggles the lights above the projector
+    if deviceName == 'ToggleMovie':
+       if iLED.MOVIE_LIGHT == True:
+          iLED.MOVIE_LIGHT = False
+          iLED.turnOffMovie()
+       else:
+          iLED.MOVIE_LIGHT = True
+    
     #Stops all patterns and turns the lights off
     if deviceName == 'stop':
         CURRENT_PATTERN = 'No Pattern Running'
-        led.MASTER_LOOP = False
-        led.turnOff()
+        iLED.MASTER_LOOP = False
+        iLED.turnOff()
 
-    #Runs random patterns with random colors (Name needs to change)    
-    if deviceName == 'bootup':
+    #Runs random patterns with random colors    
+    if deviceName == 'ColorCycle':
         
         #If There is already a pattern running, turn the lights and Master loop off
-        if led.MASTER_LOOP ==  True:
-            led.MASTER_LOOP = False
-            led.turnOff()
+        if iLED.MASTER_LOOP ==  True:
+            iLED.MASTER_LOOP = False
+            iLED.turnOff()
         CURRENT_PATTERN = 'Color Cycle'
         
         #Restarting the Master Loop
-        led.MASTER_LOOP = True
+        iLED.MASTER_LOOP = True
         
         #Threading to allow it to run in the background
         t = threading.Thread(target=loopPattern, args=("B"))
@@ -77,13 +86,13 @@ def action(deviceName):
     if deviceName == 'TheaterChase':
         
        #If There is already a pattern running, turn the lights and Master loop off
-       if led.MASTER_LOOP == True:
-           led.MASTER_LOOP = False
-           led.turnOff()
+       if iLED.MASTER_LOOP == True:
+           iLED.MASTER_LOOP = False
+           iLED.turnOff()
        CURRENT_PATTERN = "Theater Chase"
     
        #Restarting the Master Loop
-       led.MASTER_LOOP = True
+       iLED.MASTER_LOOP = True
     
        #Threading to allow it to run in the background
        t = threading.Thread(target=loopPattern, args=("T"))
@@ -94,9 +103,9 @@ def action(deviceName):
     if deviceName == 'StaticColor':
         
        #If There is already a pattern running, turn the lights and Master loop off 
-       if led.MASTER_LOOP == True:
-           led.MASTER_LOOP = False
-           led.turnOff()
+       if iLED.MASTER_LOOP == True:
+           iLED.MASTER_LOOP = False
+           iLED.turnOff()
        CURRENT_PATTERN = "Static Color"
     
        #Threading to allow it to run in the background
@@ -108,13 +117,13 @@ def action(deviceName):
     if deviceName == 'Rave':
         
         #If There is already a pattern running, turn the lights and Master loop off
-        if led.MASTER_LOOP == True:
-            led.MASTER_LOOP = False
-            led.turnOff()
+        if iLED.MASTER_LOOP == True:
+            iLED.MASTER_LOOP = False
+            iLED.turnOff()
         CURRENT_PATTERN = "Rave"
         
         #Restarting the Master Loop
-        led.MASTER_LOOP = True
+        iLED.MASTER_LOOP = True
         
         #Threading to allow it to run in the background
         t = threading.Thread(target=loopPattern, args=("R"))
@@ -125,13 +134,13 @@ def action(deviceName):
     if deviceName == 'Pong':
         
         #If There is already a pattern running, turn the lights and Master loop off 
-        if led.MASTER_LOOP == True:
-            led.MASTER_LOOP = False
-            led.turnOff()
+        if iLED.MASTER_LOOP == True:
+            iLED.MASTER_LOOP = False
+            iLED.turnOff()
         CURRENT_PATTERN = "Pong"
         
         #Restarting the Master Loop
-        led.MASTER_LOOP = True
+        iLED.MASTER_LOOP = True
         
         #Threading to allow it to run in the background
         t = threading.Thread(target=loopPattern, args=("P"))
@@ -146,5 +155,5 @@ def action(deviceName):
     return render_template('index.html', **templateData)
 
 if __name__ == "__main__":
-    #led.startUp()
+    iLED.startUp()
     app.run(host='0.0.0.0', port=80, debug=True)

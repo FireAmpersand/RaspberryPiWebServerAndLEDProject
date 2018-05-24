@@ -4,18 +4,19 @@ import argparse
 import random
 
 #LED Strip One Setup
-STRIP_LEDS = 756 #Total LEDS For Strip
-STRIP_LEDS_PER_STRAND = 108 #LEDS PER BEAM
-STRIP_PIN = 18 #LED Pin For Strip 
+STRIP_LEDS = 450 #Total LEDS For Strip
+STRIP_PIN = 12 #LED Pin For Strip 
 STRIP_FREQ = 800000
-STRIP_DMA = 10
+STRIP_DMA = 10 #Possible change, maybe switch to 5?
 STRIP_BRIGHTNESS = 127
 STRIP_INVERT = False
 STRIP_CHANNEL = 0
 STRIP = Adafruit_NeoPixel(STRIP_LEDS, STRIP_PIN, STRIP_FREQ, STRIP_DMA, STRIP_INVERT, STRIP_BRIGHTNESS, STRIP_CHANNEL)
 STRIP.begin()
 
+
 MASTER_LOOP = False
+
 
 def newBrightness():
     """Function used to set the Strip's brightness"""
@@ -28,6 +29,14 @@ def colorwipe(color, wait_ms=1):
         STRIP.show()
         time.sleep(wait_ms/1000.0)
 
+def revColorWipe(color, wait_ms=1):
+    """Lights up the leds like colorwipe, but in reverse"""
+    for i in range(STRIP.numPixels()):
+        STRIP.setPixelColor(STRIP.numPixels() - i, color)
+        STRIP.show()
+        time.sleep(wait_ms/1000.0)
+
+
 def pulseColor(color, wait_ms=100):
     """Turns on all the leds a select color, then turns them all off, making them flash"""
     for i in range(STRIP.numPixels()):
@@ -38,9 +47,9 @@ def pulseColor(color, wait_ms=100):
         STRIP.setPixelColor(t, Color(0,0,0))
     STRIP.show()
     time.sleep(wait_ms/1000.0)
-
+    
 def runRave():
-    """Runs the pulseColor function forever untill Master Loop is false"""
+    """Runs the pulseColor function forever until Master Loop is false"""
     while MASTER_LOOP == True:
         pulseColor(Color(0,255,0))
 
@@ -53,15 +62,7 @@ def theaterChase(color,wait_ms=50, times=10):
             STRIP.show()
             time.sleep(wait_ms/1000.0)
             for i in range(0, STRIP.numPixels(), 3):
-                STRIP.setPixelColor(i+q, 0)
-
-def colorWipeBeam(color, wait_ms = 20):
-    """Lights up all leds with the given color, but does all beams at the same time"""
-    for q in range(STRIP_LEDS_PER_STRAND):
-        for i in range(0, STRIP.numPixels(), STRIP_LEDS_PER_STRAND):
-            STRIP.setPixelColor(i+q, color)
-        STRIP.show()
-        time.sleep(wait_ms/1000.0)
+                STRIP.setPixelColor(i+q, Color(0,0,0))
 
 def staticColor(red,green,blue):
     """Sets all the leds to a given color with the red, green, blue values provided"""
@@ -69,13 +70,12 @@ def staticColor(red,green,blue):
         STRIP.setPixelColor(i, Color(red,green,blue))
     STRIP.show()
 
-
 def runColorCycle():
     """Runs a random animation and color forever untill Master Loop is false"""
     while MASTER_LOOP:
         type = random.randint(0,1)
         if type == 0:
-            colorWipeBeam(Color(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
+            colorwipe(Color(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
         if type == 1:
             theaterChase(Color(random.randint(0,255), random.randint(0,255),random.randint(0,255)))
         #colorWipeBeam(Color(255,0,0))
@@ -88,10 +88,10 @@ def runColorCycle():
 
 def startUp():
     """Function called when the web server first starts to show it is working"""
-    colorWipeBeam(Color(255,0,0))
-    colorWipeBeam(Color(0,255,0))
-    colorWipeBeam(Color(0,0,255))
-    colorWipeBeam(Color(0,0,0))
+    colorwipe(Color(255,0,0))
+    revColorWipe(Color(0,255,0))
+    colorwipe(Color(0,0,255))
+    revColorWipe(Color(0,0,0))
     pulseColor(Color(0,255,0))
     pulseColor(Color(0,255,0))
     pulseColor(Color(0,255,0))
@@ -100,7 +100,7 @@ def startUp():
 
 def turnOff():
     """Sets all leds to 'off' (Black)"""
-    colorWipeBeam(Color(0,0,0))
+    colorwipe(Color(0,0,0))
 
 
 def runTheater():
@@ -108,33 +108,3 @@ def runTheater():
     while MASTER_LOOP:
         theaterChase(Color(255,255,255))
 
-
-def pong():
-    """Runs a animation that represents basic pong graphics"""
-    for i in range(34):
-        STRIP.setPixelColor(i+36, Color(255,255,255))
-        STRIP.setPixelColor(648 + 36 + i, Color(255,255,255))
-        STRIP.show()
-    for t in range(3):
-        STRIP.setPixelColor(162 , Color(255,255,255))
-        STRIP.show()
-        time.sleep(1)
-        STRIP.setPixelColor(162, Color(0,0,0))
-        STRIP.show()
-        time.sleep(1)
-    STRIP.setPixelColor(162, Color (255,255,255))
-    STRIP.show()
-    while MASTER_LOOP:
-        oldLocation = 162
-        for q in range(4):
-            STRIP.setPixelColor(oldLocation, Color(0,0,0))
-            STRIP.setPixelColor(oldLocation + 108, Color(255,255,255))
-            oldLocation = oldLocation + 108
-            STRIP.show()
-            time.sleep(.7)
-        for w in range(4):
-            STRIP.setPixelColor(oldLocation, Color(0,0,0))
-            STRIP.setPixelColor(oldLocation - 108, Color(255,255,255))
-            oldLocation = oldLocation - 108
-            STRIP.show()
-            time.sleep(0.7)

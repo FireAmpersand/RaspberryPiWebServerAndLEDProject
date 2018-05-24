@@ -1,5 +1,5 @@
 # RaspberryPiWebServerAndLEDProject
-Project for building web server and running a leds off the web host  
+Project for building a web server that can change led patterns on the fly.  
 
 Libraries used in this project: Flask, Neopixel, and rpi_ws281x.
 

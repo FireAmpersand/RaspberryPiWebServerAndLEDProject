@@ -36,7 +36,7 @@ def colorwipe(color, wait_ms=1):
         for i in range(MOVIE_LIGHT_RANGE, STRIP.numPixels()):
             STRIP.setPixelColor(i,color)
             STRIP.show()
-            time.sleep(wai_ms/1000.0)
+            time.sleep(wait_ms/1000.0)
 
 def pulseColor(color, wait_ms=100):
     """Turns on all the leds a select color, then turns them all off, making them flash"""
@@ -54,8 +54,8 @@ def pulseColor(color, wait_ms=100):
             STRIP.setPixelColor(i, color)
         STRIP.show()
         time.sleep(wait_ms/1000.0)
-        for t in range(MOVIE_LIGHT_RANGE, STRIP.numPixels()):
-            STRIP.setPixelColor(i, color)
+        for t in range(MOVIE_LIGHT_RANGE, STRIP.numPixels() ):
+            STRIP.setPixelColor(t, Color(0,0,0))
         STRIP.show()
         time.sleep(wait_ms/1000.0)
 
@@ -78,14 +78,14 @@ def theaterChase(color,wait_ms=50, times=10):
     else:
         for j in range(times):
             for q in range(3):
-                for i in range(0, STRIP.numPixels(), 3):
+                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
                     STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, color)
                 STRIP.show()
                 time.sleep(wait_ms/1000.0)
-                for i in range(0, STRIP.numPixels(), 3):
-                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, color)
+                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
 
-def colorWipeBeam(color, wait_ms = 20):
+def colorWipeBeam(color, wait_ms = 1):
     """Lights up all leds with the given color, but does all beams at the same time"""
     if MOVIE_LIGHT == True:
         for q in range(STRIP_LEDS_PER_STRAND):
@@ -98,7 +98,7 @@ def colorWipeBeam(color, wait_ms = 20):
             for i in range(0, STRIP.numPixels(), STRIP_LEDS_PER_STRAND):
                 STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, color)
             STRIP.show()
-            time.sleep(wai_ms/1000.0)
+            time.sleep(wait_ms/1000.0)
 
 def staticColor(red,green,blue):
     """Sets all the leds to a given color with the red, green, blue values provided"""
@@ -108,7 +108,7 @@ def staticColor(red,green,blue):
         STRIP.show()
     else:
         for i in range(MOVIE_LIGHT_RANGE,STRIP.numPixels()):
-            STRIP.setPixelsColor(i, Color(red,green,blue))
+            STRIP.setPixelColor(i, Color(red,green,blue))
         STRIP.show()
 
 def runColorCycle():

@@ -22,6 +22,8 @@ def loopPattern(type):
         iLED.runRave()
     elif type == "P":
         iLED.pong()
+    elif type == 't':
+        eLED.runTheater()
 
 
 @app.route("/")
@@ -30,6 +32,7 @@ def index():
     templateData = {
         'title' : 'Led Pattern Status',
         'pattern' : CURRENT_PATTERN,
+        'lightToggle' : iLED.MOVIE_LIGHT,
     }
     return render_template('index.html',**templateData)
 
@@ -64,6 +67,8 @@ def action(deviceName):
         CURRENT_PATTERN = 'No Pattern Running'
         iLED.MASTER_LOOP = False
         iLED.turnOff()
+        eLED.MASTER_LOOP = False
+        eLED.turnOff()
 
     #Runs random patterns with random colors    
     if deviceName == 'ColorCycle':
@@ -93,11 +98,16 @@ def action(deviceName):
     
        #Restarting the Master Loop
        iLED.MASTER_LOOP = True
+       eLED.MASTER_LOOP = True
     
        #Threading to allow it to run in the background
        t = threading.Thread(target=loopPattern, args=("T"))
        t.daemon = True
        t.start()
+
+       tt = threading.Thread(target=loopPattern, args=("t"))
+       tt.daemon = True
+       tt.start()
    
     #Sets all the leds to one static color
     if deviceName == 'StaticColor':
@@ -151,6 +161,7 @@ def action(deviceName):
     templateData = {
         'title' : 'LED Pattern Status',
         'pattern' : CURRENT_PATTERN,
+        'lightToggle' :iLED.MOVIE_LIGHT,
     }
     return render_template('index.html', **templateData)
 

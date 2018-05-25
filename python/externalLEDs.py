@@ -14,7 +14,7 @@ STRIP_CHANNEL = 0
 STRIP = Adafruit_NeoPixel(STRIP_LEDS, STRIP_PIN, STRIP_FREQ, STRIP_DMA, STRIP_INVERT, STRIP_BRIGHTNESS, STRIP_CHANNEL)
 STRIP.begin()
 
-
+#Master loop varible to keep patterns running
 MASTER_LOOP = False
 
 

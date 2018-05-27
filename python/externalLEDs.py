@@ -4,7 +4,7 @@ import argparse
 import random
 
 #LED Strip One Setup
-STRIP_LEDS = 450 #Total LEDS For Strip
+STRIP_LEDS = 500 #Total LEDS For Strip
 STRIP_PIN = 12 #LED Pin For Strip 
 STRIP_FREQ = 800000
 STRIP_DMA = 10 #Possible change, maybe switch to 5?

@@ -223,7 +223,7 @@ def action(deviceName):
         if iLED.MASTER_LOOP == True:
             iLED.MASTER_LOOP = False
             iLED.turnOff()
-        CURRENT_PATTERN = "Pong"
+        CURRENT_INSIDE_PATTERN = "Pong"
         
         #Restarting the Master Loop
         iLED.MASTER_LOOP = True
@@ -236,8 +236,8 @@ def action(deviceName):
     #Creating a dictionary to send back to the webpage to use variables from this side.    
     templateData = {
         'title' : 'LED Pattern Status',
-        'patternInside' : CURRENT_INSIDE_PATTERN,
-        'patternOutside' : CURRENT_OUTSIDE_PATTERN,
+        'patternInside' : "Placeholder Text",
+        'patternOutside' : "Placeholder Text",
         'lightToggle' :iLED.MOVIE_LIGHT,
     }
     return render_template('index.html', **templateData)

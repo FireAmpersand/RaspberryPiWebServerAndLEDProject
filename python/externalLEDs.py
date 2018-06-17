@@ -4,13 +4,13 @@ import argparse
 import random
 
 #LED Strip One Setup
-STRIP_LEDS = 450 #Total LEDS For Strip
-STRIP_PIN = 12 #LED Pin For Strip 
+STRIP_LEDS = 470 #Total LEDS For Strip
+STRIP_PIN = 13 #LED Pin For Strip 
 STRIP_FREQ = 800000
 STRIP_DMA = 10 #Possible change, maybe switch to 5?
 STRIP_BRIGHTNESS = 127
 STRIP_INVERT = False
-STRIP_CHANNEL = 0
+STRIP_CHANNEL = 1
 STRIP = Adafruit_NeoPixel(STRIP_LEDS, STRIP_PIN, STRIP_FREQ, STRIP_DMA, STRIP_INVERT, STRIP_BRIGHTNESS, STRIP_CHANNEL)
 STRIP.begin()
 

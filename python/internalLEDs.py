@@ -9,7 +9,7 @@ STRIP_LEDS_PER_STRAND = 108 #LEDS PER BEAM
 STRIP_PIN = 18 #LED Pin For Strip 
 STRIP_FREQ = 800000
 STRIP_DMA = 10
-STRIP_BRIGHTNESS = 127
+STRIP_BRIGHTNESS = 100 #127
 STRIP_INVERT = False
 STRIP_CHANNEL = 0
 STRIP = Adafruit_NeoPixel(STRIP_LEDS, STRIP_PIN, STRIP_FREQ, STRIP_DMA, STRIP_INVERT, STRIP_BRIGHTNESS, STRIP_CHANNEL)
@@ -161,7 +161,7 @@ def pong():
     """Runs a animation that represents basic pong graphics"""
     for i in range(34):
         STRIP.setPixelColor(i+36, Color(255,255,255))
-        STRIP.setPixelColor(648 + 36 + i, Color(255,255,255))
+        STRIP.setPixelColor(1080 + 36 + i, Color(255,255,255))
         STRIP.show()
     for t in range(3):
         STRIP.setPixelColor(162 , Color(255,255,255))
@@ -174,13 +174,13 @@ def pong():
     STRIP.show()
     while MASTER_LOOP:
         oldLocation = 162
-        for q in range(4):
+        for q in range(8):
             STRIP.setPixelColor(oldLocation, Color(0,0,0))
             STRIP.setPixelColor(oldLocation + 108, Color(255,255,255))
             oldLocation = oldLocation + 108
             STRIP.show()
             time.sleep(.7)
-        for w in range(4):
+        for w in range(8):
             STRIP.setPixelColor(oldLocation, Color(0,0,0))
             STRIP.setPixelColor(oldLocation - 108, Color(255,255,255))
             oldLocation = oldLocation - 108

@@ -31,6 +31,10 @@ def loopPattern(type):
         eLED.runRave()
     elif type == 'I':
         iLED.pong()
+    elif type == 'J':
+        iLED.runCanadaDayAnimation()
+    elif type == 'K':
+        eLED.runCanadaDayAnimation()
 
 
 @app.route("/")
@@ -233,6 +237,38 @@ def action(deviceName):
         t.daemon = True
         t.start()
 
+    if deviceName == 'CanadaInside':
+        
+        #If There is already a pattern running, turn the lights and Master loop off 
+        if iLED.MASTER_LOOP == True:
+            iLED.MASTER_LOOP = False
+            iLED.turnOff()
+        CURRENT_INSIDE_PATTERN = "Canada Day"
+        
+        #Restarting the Master Loop
+        iLED.MASTER_LOOP = True
+        
+        #Threading to allow it to run in the background
+        t = threading.Thread(target=loopPattern, args=("J"))
+        t.daemon = True
+        t.start()
+        
+    if deviceName == 'CanadaOutside':
+        
+        #If There is already a pattern running, turn the lights and Master loop off 
+        if eLED.MASTER_LOOP == True:
+            eLED.MASTER_LOOP = False
+            eLED.turnOff()
+        CURRENT_OUTSIDE_PATTERN = "Canada Day"
+        
+        #Restarting the Master Loop
+        eLED.MASTER_LOOP = True
+        
+        #Threading to allow it to run in the background
+        t = threading.Thread(target=loopPattern, args=("K"))
+        t.daemon = True
+        t.start()
+        
     #Creating a dictionary to send back to the webpage to use variables from this side.    
     templateData = {
         'title' : 'LED Pattern Status',

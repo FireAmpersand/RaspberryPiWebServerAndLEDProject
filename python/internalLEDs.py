@@ -86,7 +86,7 @@ def theaterChase(color,wait_ms=50, times=10):
                     STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
                     
                     
- def specialTheaterChase(wait_ms=50, times=10):
+def specialTheaterChase(wait_ms=50, times=10):
     """Function used to create the theater chase animation"""
     if MOVIE_LIGHT == True:
         for j in range(times):

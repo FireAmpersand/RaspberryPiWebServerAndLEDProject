@@ -53,7 +53,7 @@ def runRave():
     while MASTER_LOOP == True:
         pulseColor(Color(0,255,0))
 
-def theaterChase(color,wait_ms=50, times=10):
+def theaterChase(color,wait_ms=50, times=20):
     """Function used to create the theater chase animation"""
     for j in range(times):
         for q in range(3):
@@ -78,12 +78,6 @@ def runColorCycle():
             colorwipe(Color(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
         if type == 1:
             theaterChase(Color(random.randint(0,255), random.randint(0,255),random.randint(0,255)))
-        #colorWipeBeam(Color(255,0,0))
-        #colorWipeBeam(Color(0,255,0))
-        #colorWipeBeam(Color(0,0,255))
-        #colorWipeBeam(Color(114,228,52))
-        #colorWipeBeam(Color(52,52,52))
-        #colorWipeBeam(Color(255,0,128))
         
 
 def startUp():
@@ -102,6 +96,11 @@ def turnOff():
     """Sets all leds to 'off' (Black)"""
     colorwipe(Color(0,0,0))
 
+def runCanadaDayAnimation():
+    """Runs two theater chase animations, one red and one white"""
+    while MASTER_LOOP:
+        theaterChase(Color(255,255,255))
+        theaterChase(Color(255,0,0))
 
 def runTheater():
     """Runs theater chase forever until Master Loop is false"""

@@ -214,6 +214,6 @@ def pong():
             time.sleep(0.7)
             
             
-    def runCanadaDayAnimation():
-        while MASTER_LOOP:
-            specialTheaterChase()
+def runCanadaDayAnimation():
+    while MASTER_LOOP:
+        specialTheaterChase()

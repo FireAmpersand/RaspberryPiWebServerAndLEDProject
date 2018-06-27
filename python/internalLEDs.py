@@ -85,6 +85,27 @@ def theaterChase(color,wait_ms=50, times=10):
                 for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
                     STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
                     
+def theaterChaseGreen(wait_ms=50, times=10):
+    """Function used to create the theater chase animation"""
+    if MOVIE_LIGHT == True:
+        for j in range(times):
+            for q in range(3):
+                for i in range(0, STRIP.numPixels(), 3):
+                    STRIP.setPixelColor(i+q, Color(0,255,0))
+                STRIP.show()
+                time.sleep(wait_ms/1000.0)
+                for i in range(0, STRIP.numPixels(), 3):
+                    STRIP.setPixelColor(i+q, 0)
+    else:
+        for j in range(times):
+            for q in range(3):
+                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, Color(0,255,0))
+                STRIP.show()
+                time.sleep(wait_ms/1000.0)
+                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
+                    
                     
 def specialTheaterChase(wait_ms=50, times=10):
     """Function used to create the theater chase animation"""
@@ -181,6 +202,11 @@ def runTheater():
     """Runs theater chase forever until Master Loop is false"""
     while MASTER_LOOP:
         theaterChase(Color(255,255,255))
+        
+def runTheaterGreen():
+    """Runs theater chase forever until Master Loop is false"""
+    while MASTER_LOOP:
+        theaterChaseGreen()
 
 
 def pong():

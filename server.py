@@ -35,6 +35,10 @@ def loopPattern(type):
         iLED.runCanadaDayAnimation()
     elif type == 'K':
         eLED.runCanadaDayAnimation()
+    elif type == 'L':
+        iLED.staticColor(0,255,0)
+    elif type == 'M':
+        eLED.staticColor(0,255,0)
 
 
 @app.route("/")
@@ -182,6 +186,35 @@ def action(deviceName):
     
        #Threading to allow it to run in the background
        t = threading.Thread(target=loopPattern, args=("F"))
+       t.daemon = True
+       t.start()
+    
+    #Sets all the leds to one static color
+    #Inside Command
+    if deviceName == 'StaticColorGreenInside':
+        
+       #If There is already a pattern running, turn the lights and Master loop off 
+       if iLED.MASTER_LOOP == True:
+           iLED.MASTER_LOOP = False
+           iLED.turnOff()
+       CURRENT_INSIDE_PATTERN = "Static Color"
+    
+       #Threading to allow it to run in the background
+       t = threading.Thread(target=loopPattern, args=("L"))
+       t.daemon = True
+       t.start()
+    
+    #Outside Command
+    if deviceName == 'StaticColorGreenOutside':
+        
+       #If There is already a pattern running, turn the lights and Master loop off 
+       if eLED.MASTER_LOOP == True:
+           eLED.MASTER_LOOP = False
+           eLED.turnOff()
+       CURRENT_OUTSIDE_PATTERN = "Static Color"
+    
+       #Threading to allow it to run in the background
+       t = threading.Thread(target=loopPattern, args=("M"))
        t.daemon = True
        t.start()
 

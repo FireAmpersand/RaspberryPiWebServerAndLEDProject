@@ -63,6 +63,17 @@ def theaterChase(color,wait_ms=50, times=20):
             time.sleep(wait_ms/1000.0)
             for i in range(0, STRIP.numPixels(), 3):
                 STRIP.setPixelColor(i+q, Color(0,0,0))
+                
+def theaterChaseGreen(wait_ms=50, times=20):
+    """Function used to create the theater chase animation"""
+    for j in range(times):
+        for q in range(3):
+            for i in range(0, STRIP.numPixels(), 3):
+                STRIP.setPixelColor(i+q, Color(0,255,0))
+            STRIP.show()
+            time.sleep(wait_ms/1000.0)
+            for i in range(0, STRIP.numPixels(), 3):
+                STRIP.setPixelColor(i+q, Color(0,0,0))
 
 def staticColor(red,green,blue):
     """Sets all the leds to a given color with the red, green, blue values provided"""

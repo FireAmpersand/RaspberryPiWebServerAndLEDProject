@@ -117,4 +117,10 @@ def runTheater():
     """Runs theater chase forever until Master Loop is false"""
     while MASTER_LOOP:
         theaterChase(Color(255,255,255))
+        
+
+def runTheaterGreen():
+    """Runs theater chase forever until Master Loop is false"""
+    while MASTER_LOOP:
+        theaterChaseGreen()
 

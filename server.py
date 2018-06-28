@@ -39,6 +39,10 @@ def loopPattern(type):
         iLED.staticColor(0,255,0)
     elif type == 'M':
         eLED.staticColor(0,255,0)
+    elif type == 'N':
+        iLED.runTheaterGreen()
+    elif type == 'O':
+        eLED.runTheaterGreen()
 
 
 @app.route("/")
@@ -157,6 +161,41 @@ def action(deviceName):
     
        #Threading to allow it to run in the background
        t = threading.Thread(target=loopPattern, args=("D"))
+       t.daemon = True
+       t.start()
+    
+    #Runs the Theater Chase Animation
+    #Inside Command
+    if deviceName == 'TheaterChaseGreenInside':
+        
+       #If There is already a pattern running, turn the lights and Master loop off
+       if iLED.MASTER_LOOP == True:
+           iLED.MASTER_LOOP = False
+           iLED.turnOff()
+       CURRENT_INSIDE_PATTERN = "Theater Chase"
+    
+       #Restarting the Master Loop
+       iLED.MASTER_LOOP = True
+    
+       #Threading to allow it to run in the background
+       t = threading.Thread(target=loopPattern, args=("N"))
+       t.daemon = True
+       t.start()
+    
+    #Outside Command
+    if deviceName == 'TheaterChaseGreenOutside':
+        
+       #If There is already a pattern running, turn the lights and Master loop off
+       if eLED.MASTER_LOOP == True:
+           eLED.MASTER_LOOP = False
+           eLED.turnOff()
+       CURRENT_OUTSIDE_PATTERN = "Theater Chase"
+    
+       #Restarting the Master Loop
+       eLED.MASTER_LOOP = True
+    
+       #Threading to allow it to run in the background
+       t = threading.Thread(target=loopPattern, args=("O"))
        t.daemon = True
        t.start()
    

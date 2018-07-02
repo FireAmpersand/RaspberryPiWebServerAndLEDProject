@@ -112,10 +112,10 @@ def specialTheaterChase(wait_ms=50):
                   STRIP.setPixelColor(i+q, Color(255,255,255))
                else:
                   STRIP.setPixelColor(i+q, Color(255,0,0))
-            STRIP.show()
-            time.sleep(wait_ms/1000.0)
-            for i in range(0, STRIP.numPixels(), 3):
-                STRIP.setPixelColor(i+q, 0)
+           STRIP.show()
+           time.sleep(wait_ms/1000.0)
+           for i in range(0, STRIP.numPixels(), 3):
+               STRIP.setPixelColor(i+q, 0)
     else:
         for q in range(3):
             for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):

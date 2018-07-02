@@ -110,8 +110,8 @@ def specialTheaterChase(wait_ms=50):
            for i in range(0, STRIP.numPixels(), 3):
                if i < 540:
                   STRIP.setPixelColor(i+q, Color(255,255,255))
-                  else:
-                    STRIP.setPixelColor(i+q, Color(255,0,0))
+               else:
+                  STRIP.setPixelColor(i+q, Color(255,0,0))
             STRIP.show()
             time.sleep(wait_ms/1000.0)
             for i in range(0, STRIP.numPixels(), 3):

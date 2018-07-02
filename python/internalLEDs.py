@@ -64,72 +64,66 @@ def runRave():
     while MASTER_LOOP == True:
         pulseColor(Color(0,255,0))
 
-def theaterChase(color,wait_ms=50, times=10):
+def theaterChase(color,wait_ms=50):
     """Function used to create the theater chase animation"""
     if MOVIE_LIGHT == True:
-        for j in range(times):
-            for q in range(3):
-                for i in range(0, STRIP.numPixels(), 3):
-                    STRIP.setPixelColor(i+q, color)
-                STRIP.show()
-                time.sleep(wait_ms/1000.0)
-                for i in range(0, STRIP.numPixels(), 3):
-                    STRIP.setPixelColor(i+q, 0)
+       for q in range(3):
+           for i in range(0, STRIP.numPixels(), 3):
+               STRIP.setPixelColor(i+q, color)
+           STRIP.show()
+           time.sleep(wait_ms/1000.0)
+           for i in range(0, STRIP.numPixels(), 3):
+               STRIP.setPixelColor(i+q, 0)
     else:
-        for j in range(times):
-            for q in range(3):
-                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
-                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, color)
-                STRIP.show()
-                time.sleep(wait_ms/1000.0)
-                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
-                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
+       for q in range(3):
+           for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+               STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, color)
+           STRIP.show()
+           time.sleep(wait_ms/1000.0)
+           for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+               STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
                     
-def theaterChaseGreen(wait_ms=50, times=10):
+def theaterChaseGreen(wait_ms=50):
     """Function used to create the theater chase animation"""
     if MOVIE_LIGHT == True:
-        for j in range(times):
-            for q in range(3):
-                for i in range(0, STRIP.numPixels(), 3):
-                    STRIP.setPixelColor(i+q, Color(0,255,0))
-                STRIP.show()
-                time.sleep(wait_ms/1000.0)
-                for i in range(0, STRIP.numPixels(), 3):
-                    STRIP.setPixelColor(i+q, 0)
+       for q in range(3):
+           for i in range(0, STRIP.numPixels(), 3):
+               STRIP.setPixelColor(i+q, Color(0,255,0))
+           STRIP.show()
+           time.sleep(wait_ms/1000.0)
+           for i in range(0, STRIP.numPixels(), 3):
+               STRIP.setPixelColor(i+q, 0)
     else:
-        for j in range(times):
-            for q in range(3):
-                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
-                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, Color(0,255,0))
-                STRIP.show()
-                time.sleep(wait_ms/1000.0)
-                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
-                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
+        for q in range(3):
+            for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+                STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, Color(0,255,0))
+            STRIP.show()
+            time.sleep(wait_ms/1000.0)
+            for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+                STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
                     
                     
-def specialTheaterChase(wait_ms=50, times=10):
+def specialTheaterChase(wait_ms=50):
     """Function used to create the theater chase animation"""
     if MOVIE_LIGHT == True:
-        for j in range(times):
-            for q in range(3):
-                for i in range(0, STRIP.numPixels(), 3):
-                    if i < 540:
-                        STRIP.setPixelColor(i+q, Color(255,255,255))
-                    else:
-                        STRIP.setPixelColor(i+q, Color(255,0,0))
-                STRIP.show()
-                time.sleep(wait_ms/1000.0)
-                for i in range(0, STRIP.numPixels(), 3):
-                    STRIP.setPixelColor(i+q, 0)
+       for q in range(3):
+           for i in range(0, STRIP.numPixels(), 3):
+               if i < 540:
+                  STRIP.setPixelColor(i+q, Color(255,255,255))
+                  else:
+                    STRIP.setPixelColor(i+q, Color(255,0,0))
+            STRIP.show()
+            time.sleep(wait_ms/1000.0)
+            for i in range(0, STRIP.numPixels(), 3):
+                STRIP.setPixelColor(i+q, 0)
     else:
-        for j in range(times):
-            for q in range(3):
-                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
-                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, color)
-                STRIP.show()
-                time.sleep(wait_ms/1000.0)
-                for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
-                    STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
+        for q in range(3):
+            for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+                STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, color)
+            STRIP.show()
+            time.sleep(wait_ms/1000.0)
+            for i in range(0, STRIP.numPixels() - MOVIE_LIGHT_RANGE, 3):
+                STRIP.setPixelColor(MOVIE_LIGHT_RANGE+i+q, 0)
                     
 
 def colorWipeBeam(color, wait_ms = 1):

@@ -43,7 +43,8 @@ def loopPattern(type):
         iLED.runTheaterGreen()
     elif type == 'O':
         eLED.runTheaterGreen()
-
+    elif type == 'P':
+        iLED.staticColor(0,0,255)
 
 @app.route("/")
 def index():
@@ -243,6 +244,19 @@ def action(deviceName):
        t.daemon = True
        t.start()
     
+    #Sets all the leds to all blue
+    #Inside Command
+    if deviceName == 'StaticBlue':
+        #If there is already a patteren running, turn the lights and master loop off
+        if iLED.MASTER_LOOP == True:
+            iLED.MASTER_LOOP = False
+            iLED.turnOff()
+        CURRENT_INSIDE_PATTEREN = "Static Blue"
+
+        t = threading.Thread(target=loopPattern, args=("P"))
+        t.daemon = True
+        t.start()
+
     #Outside Command
     if deviceName == 'StaticColorGreenOutside':
         
